@@ -1,0 +1,11 @@
+env: prod
+
+aws:
+  httpClient:
+    maxConcurrency: 64
+    writeTimeout: 0s
+  s3Service:
+    checksumValidationEnabled: false
+    chunkedEncodingEnabled: true
+
+
