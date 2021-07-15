@@ -5,7 +5,8 @@
 /src/test/resources/secret/
 gradlew*
 makaniti_backend/build/*
-/build/*
+frontend/node_modules/
+frontend/amplify/
 
 ####### auto generated: #######
 

@@ -1,0 +1,8 @@
+nav .reg-nav-btn {
+    background-color: cornflowerblue;
+    border-radius: 10px;   
+}
+
+amplify-sign-out{
+    --background-color: blue
+}
