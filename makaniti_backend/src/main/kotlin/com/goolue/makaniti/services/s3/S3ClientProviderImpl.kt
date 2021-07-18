@@ -1,5 +1,7 @@
 package com.goolue.makaniti.services.s3
 
+import io.reactivex.rxjava3.annotations.NonNull
+import io.reactivex.rxjava3.core.Single
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient
 import software.amazon.awssdk.regions.Region
@@ -22,18 +24,21 @@ class S3ClientProviderImpl(
   companion object {
     private val logger = logger()
 
-    fun getFromConfig(): S3ClientProviderImpl {
-      val config = getConfig()
-      val secretAws = config.secretConfig.secretAws
-      val publicAws = config.publicConfig.aws
-      return S3ClientProviderImpl(
-        region = Region.of(secretAws.region.name),
-        credentialsProvider = secretAws.credentialProvider,
-        maxConcurrency = publicAws.httpClient.maxConcurrency,
-        writeTimeout = publicAws.httpClient.writeTimeout,
-        checksumValidationEnabled = publicAws.s3Service.checksumValidationEnabled,
-        chunkedEncodingEnabled = publicAws.s3Service.chunkedEncodingEnabled
-      )
+    fun getFromConfig(): Single<S3ClientProviderImpl> {
+      return getConfig()
+        .map {
+          val secretAws = it.secretConfig.secretAws
+          val publicAws = it.publicConfig.aws
+
+          S3ClientProviderImpl(
+            region = Region.of(secretAws.region.name),
+            credentialsProvider = secretAws.credentialProvider,
+            maxConcurrency = publicAws.httpClient.maxConcurrency,
+            writeTimeout = publicAws.httpClient.writeTimeout,
+            checksumValidationEnabled = publicAws.s3Service.checksumValidationEnabled,
+            chunkedEncodingEnabled = publicAws.s3Service.chunkedEncodingEnabled
+          )
+        }
     }
   }
 

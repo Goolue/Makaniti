@@ -10,9 +10,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 internal class S3ServiceRealS3Test {
-  private val s3 = S3Service(S3ClientProviderImpl.getFromConfig().getS3Client())
-
-  //  TODO add tests with mock and git commit oozhe!
+  private val s3 = S3Service(S3ClientProviderImpl.getFromConfig().blockingGet().getS3Client())
 
   @Test
   fun `isBucketExists should return true when bucket exists`() {
