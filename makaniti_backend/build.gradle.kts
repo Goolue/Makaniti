@@ -47,6 +47,8 @@ dependencies {
   // aws
   implementation(platform("software.amazon.awssdk:bom:2.15.0"))
   implementation("software.amazon.awssdk:s3")
+  implementation("software.amazon.awssdk:dynamodb-enhanced")
+  implementation("software.amazon.awssdk:dynamodb")
   implementation("software.amazon.awssdk:netty-nio-client")
 
   // other
@@ -59,6 +61,10 @@ dependencies {
   testImplementation(platform("org.junit:junit-bom:5.7.2"))
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+  testImplementation("com.adobe.testing:s3mock-junit5:2.1.36") {
+    exclude(module = "logback-classic")
+  }
+
   implementation(kotlin("reflect"))
 }
 

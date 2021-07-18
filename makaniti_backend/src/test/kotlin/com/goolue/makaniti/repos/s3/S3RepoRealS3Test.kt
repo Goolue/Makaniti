@@ -1,7 +1,5 @@
-package com.goolue.makaniti.services
+package com.goolue.makaniti.repos.s3
 
-import com.goolue.makaniti.services.s3.S3ClientProviderImpl
-import com.goolue.makaniti.services.s3.S3Service
 import io.reactivex.rxjava3.core.Single
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -9,8 +7,8 @@ import org.junit.jupiter.api.fail
 import java.util.*
 import java.util.stream.Collectors
 
-internal class S3ServiceRealS3Test {
-  private val s3 = S3Service(S3ClientProviderImpl.getFromConfig().blockingGet().getS3Client())
+internal class S3RepoRealS3Test {
+  private val s3 = S3Repo(S3ClientProviderImpl.getFromConfig().blockingGet().getS3Client())
 
   @Test
   fun `isBucketExists should return true when bucket exists`() {

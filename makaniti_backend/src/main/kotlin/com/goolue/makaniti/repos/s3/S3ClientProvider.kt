@@ -1,4 +1,4 @@
-package com.goolue.makaniti.services.s3
+package com.goolue.makaniti.repos.s3
 
 import software.amazon.awssdk.services.s3.S3AsyncClient
 

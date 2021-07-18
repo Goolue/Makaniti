@@ -1,4 +1,4 @@
-package com.goolue.makaniti.services.s3
+package com.goolue.makaniti.repos.s3
 
 import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.*
@@ -10,7 +10,7 @@ import utils.logger
 import java.util.*
 
 
-class S3Service(val s3: S3AsyncClient) {
+class S3Repo(private val s3: S3AsyncClient) {
   companion object {
     private val logger = logger()
   }

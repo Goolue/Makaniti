@@ -1,12 +1,11 @@
-package com.goolue.makaniti.services.s3
+package com.goolue.makaniti.repos.s3
 
-import io.reactivex.rxjava3.annotations.NonNull
+import com.goolue.makaniti.repos.AwsConfigObjectsCreator.getHttpClient
+import com.goolue.makaniti.repos.AwsConfigObjectsCreator.getServiceConfig
 import io.reactivex.rxjava3.core.Single
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider
-import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
-import software.amazon.awssdk.services.s3.S3Configuration
 import utils.getConfig
 import utils.logger
 import java.time.Duration
@@ -46,22 +45,12 @@ class S3ClientProviderImpl(
     logger.info("creating S3 client: ${getPropertyVals()}")
 
     return S3AsyncClient.builder()
-      .httpClient(getHttpClient())
-      .serviceConfiguration(getServiceConfig())
+      .httpClient(getHttpClient(writeTimeout, maxConcurrency))
+      .serviceConfiguration(getServiceConfig(checksumValidationEnabled, chunkedEncodingEnabled))
       .region(region)
       .credentialsProvider(ProfileCredentialsProvider.create(credentialsProvider))
       .build()
   }
-
-  private fun getServiceConfig() = S3Configuration.builder()
-    .checksumValidationEnabled(checksumValidationEnabled)
-    .chunkedEncodingEnabled(chunkedEncodingEnabled)
-    .build()
-
-  private fun getHttpClient() = NettyNioAsyncHttpClient.builder()
-    .writeTimeout(writeTimeout)
-    .maxConcurrency(maxConcurrency)
-    .build()
 
   private fun getPropertyVals() =
     this::class.declaredMemberProperties
