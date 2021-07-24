@@ -10,6 +10,7 @@ import java.util.stream.Collectors
 internal class S3RepoRealS3Test {
   private val s3 = S3Repo(S3ClientProviderImpl.getFromConfig().blockingGet().getS3Client())
 
+  // TODO add tests with mock
   @Test
   fun `isBucketExists should return true when bucket exists`() {
     assertTrue(s3.isBucketExists("dummy-testing-bucket-111").blockingGet())

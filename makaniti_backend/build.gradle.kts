@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  kotlin ("jvm") version "1.4.21"
+  kotlin ("jvm") version "1.5.21"
   application
   id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -64,6 +64,9 @@ dependencies {
   testImplementation("com.adobe.testing:s3mock-junit5:2.1.36") {
     exclude(module = "logback-classic")
   }
+//  testImplementation("org.mockito:mockito-junit-jupiter:3.11.2")
+  testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+
 
   implementation(kotlin("reflect"))
 }
